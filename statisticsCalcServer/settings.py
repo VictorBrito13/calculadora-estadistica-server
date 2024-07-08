@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,11 +85,18 @@ WSGI_APPLICATION = "statisticsCalcServer.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+#env variables
+HOSTNAME = os.getenv('HOSTNAME')
+PORT = os.getenv('PORT')
+DB_NAME = os.getenv('DB_NAME')
+PASSW = os.getenv('PASSW')
+USER = os.getenv('USER')
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=f"postgresql://{USER}:{PASSW}@{HOSTNAME}:{PORT}/{DB_NAME}",
+        conn_max_age=600
+    )
 }
 
 
