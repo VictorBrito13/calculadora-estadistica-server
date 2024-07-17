@@ -3,6 +3,7 @@
 set -o errexit
 
 # Modify this line as needed for your package manager (pip, poetry, etc.)
+echo "installing dependencies for this project..."
 poetry install -r requirements.txt
 
 # Convert static asset files
